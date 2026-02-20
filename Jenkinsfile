@@ -3,9 +3,8 @@ pipeline{
     stages{
         stage("Restore Dependancies"){
             when {
-                anyOf {
-                    branch 'feature'
-                    branch 'main'
+                expression {
+                    return env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH.startsWith('origin/feature/')
                 }
             }
             steps{
@@ -14,9 +13,8 @@ pipeline{
         }
         stage("Build App"){
             when {
-                anyOf {
-                    branch 'feature'
-                    branch 'main'
+                expression {
+                    return env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH.startsWith('origin/feature/')
                 }
             }
             steps{
@@ -25,9 +23,8 @@ pipeline{
         }
         stage("Test App"){
             when {
-                anyOf {
-                    branch 'feature'
-                    branch 'main'
+                expression {
+                    return env.GIT_BRANCH == 'origin/main' || env.GIT_BRANCH.startsWith('origin/feature/')
                 }
             }
             steps{
