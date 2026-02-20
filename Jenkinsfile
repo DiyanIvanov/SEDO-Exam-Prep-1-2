@@ -3,8 +3,10 @@ pipeline{
     stages{
         stage("Restore Dependancies"){
             when {
-                branch 'feature'
-                branch 'main'
+                anyOf {
+                    branch 'feature'
+                    branch 'main'
+                }
             }
             steps{
                 bat 'dotnet restore'
@@ -12,8 +14,10 @@ pipeline{
         }
         stage("Build App"){
             when {
-                branch 'feature'
-                branch 'main'
+                anyOf {
+                    branch 'feature'
+                    branch 'main'
+                }
             }
             steps{
                 bat 'dotnet build --no-restore'
@@ -21,8 +25,10 @@ pipeline{
         }
         stage("Test App"){
             when {
-                branch 'feature'
-                branch 'main'
+                anyOf {
+                    branch 'feature'
+                    branch 'main'
+                }
             }
             steps{
                 bat 'dotnet test --no-build --verbosity normal'
